@@ -1,4 +1,4 @@
-export interface Product {
+export interface IProduct {
   id: number;
   title: string;
   brand: string;
@@ -8,8 +8,8 @@ export interface Product {
   sku?: string;
 }
 
-export interface ProductsResponse {
-  products: Product[];
+export interface IProductsResponse {
+  products: IProduct[];
   total: number;
   skip: number;
   limit: number;

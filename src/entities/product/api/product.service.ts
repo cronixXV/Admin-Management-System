@@ -1,7 +1,7 @@
 import { http } from '@/shared/api/axios-instance';
-import type { ProductsResponse } from '../model/types/types';
+import type { IProductsResponse } from '../model/types/types';
 
-export interface ProductsParams {
+export interface IProductsParams {
   limit?: number;
   skip?: number;
   q?: string;
@@ -10,8 +10,8 @@ export interface ProductsParams {
 }
 
 export const productService = {
-  getProducts: async (params?: ProductsParams) => {
-    const res = await http.get<ProductsResponse>('/products', { params });
+  getProducts: async (params?: IProductsParams) => {
+    const res = await http.get<IProductsResponse>('/products', { params });
     return res.data;
   },
 

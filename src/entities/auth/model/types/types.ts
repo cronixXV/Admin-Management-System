@@ -1,9 +1,9 @@
-export interface LoginDto {
+export interface ILoginDto {
   username: string;
   password: string;
 }
 
-export interface LoginResponse {
+export interface ILoginResponse {
   accessToken: string;
   refreshToken: string;
 }
