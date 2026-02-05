@@ -1,11 +1,13 @@
-import { Routes, Route } from "react-router-dom";
-
-const Stub = () => <div style={{ padding: 40 }}>App ready 🚀</div>;
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { LoginPage } from '@/pages/login/login-page';
+import { ProductsPage } from '@/pages/products/products-page';
 
 export const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<Stub />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/products" element={<ProductsPage />} />
+      <Route path="*" element={<Navigate to="/login" />} />
     </Routes>
   );
 };
