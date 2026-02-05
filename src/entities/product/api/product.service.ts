@@ -15,8 +15,13 @@ export const productService = {
     return res.data;
   },
 
-  searchProducts: async (q: string) => {
-    const res = await http.get<ProductsResponse>(`/products/search?q=${q}`);
+  updateProduct: async (id: number, body: Partial<any>) => {
+    const res = await http.patch(`/products/${id}`, body);
+    return res.data;
+  },
+
+  addProduct: async (body: Partial<any>) => {
+    const res = await http.post('/products/add', body);
     return res.data;
   }
 };
