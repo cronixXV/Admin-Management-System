@@ -1,4 +1,5 @@
 export interface ILoginDto {
+  email?: string;
   username: string;
   password: string;
 }
