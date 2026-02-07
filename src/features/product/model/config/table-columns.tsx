@@ -1,7 +1,11 @@
+import { Box } from '@mui/material';
+import type { GridColDef } from '@mui/x-data-grid';
+
 import type { IProductRow } from '@/entities/product';
 import { formatMoney } from '@/shared/lib/format-price';
-import { Box, Checkbox } from '@mui/material';
-import type { GridColDef } from '@mui/x-data-grid';
+
+import Checkbox from '@/shared/assets/icons/checkbox.svg';
+import CheckboxFill from '@/shared/assets/icons/checkbox-fill.svg';
 
 interface IColumnsProps {
   onHeaderCheckboxChange?: (checked: boolean, allIds: number[]) => void;
@@ -24,26 +28,24 @@ export const columns = ({
     renderHeader: () => {
       const areAllSelected =
         allProductIds.length > 0 && allProductIds.every((id) => selectedIds.has(id));
-      const isIndeterminate = selectedIds.size > 0 && !areAllSelected;
 
-      const handleHeaderCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        onHeaderCheckboxChange?.(event.target.checked, allProductIds);
+      const handleHeaderCheckboxChange = () => {
+        onHeaderCheckboxChange?.(!areAllSelected, allProductIds);
       };
 
       return (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, height: '100%' }}>
-          <Checkbox
-            size="small"
-            checked={areAllSelected}
-            indeterminate={isIndeterminate}
-            onChange={handleHeaderCheckboxChange}
-            sx={{
-              p: 0,
-              '& .MuiSvgIcon-root': {
-                fontSize: 20
-              }
-            }}
-          />
+          {areAllSelected ? (
+            <CheckboxFill
+              onClick={handleHeaderCheckboxChange}
+              style={{ cursor: 'pointer', width: 20, height: 20 }}
+            />
+          ) : (
+            <Checkbox
+              onClick={handleHeaderCheckboxChange}
+              style={{ cursor: 'pointer', width: 20, height: 20 }}
+            />
+          )}
           <span>Наименование</span>
         </Box>
       );
@@ -57,17 +59,17 @@ export const columns = ({
 
       return (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, height: '100%' }}>
-          <Checkbox
-            size="small"
-            checked={isChecked}
-            onChange={handleRowCheckboxChange}
-            sx={{
-              p: 0,
-              '& .MuiSvgIcon-root': {
-                fontSize: 20
-              }
-            }}
-          />
+          {isChecked ? (
+            <CheckboxFill
+              onClick={handleRowCheckboxChange}
+              style={{ cursor: 'pointer', width: 20, height: 20 }}
+            />
+          ) : (
+            <Checkbox
+              onClick={handleRowCheckboxChange}
+              style={{ cursor: 'pointer', width: 20, height: 20 }}
+            />
+          )}
           <span>{params.value}</span>
         </Box>
       );
