@@ -8,15 +8,15 @@ interface ITableState {
   page: number;
   pageSize: number;
 
-  sortBy?: string;
-  order?: TSortOrder;
+  sortField?: string;
+  sortOrder?: TSortOrder;
 
   columnWidths: Record<string, number>;
 
   setSearch: (v: string) => void;
   setPage: (v: number) => void;
   setPageSize: (v: number) => void;
-  setSort: (field: string, order: TSortOrder) => void;
+  setSort: (field?: string, order?: TSortOrder) => void;
   setColumnWidth: (field: string, width: number) => void;
 }
 
@@ -27,8 +27,8 @@ export const useTableStore = create<ITableState>()(
       page: 0,
       pageSize: 10,
 
-      sortBy: undefined,
-      order: undefined,
+      sortField: undefined,
+      sortOrder: undefined,
 
       columnWidths: {},
 
@@ -36,10 +36,10 @@ export const useTableStore = create<ITableState>()(
       setPage: (page) => set({ page }),
       setPageSize: (pageSize) => set({ pageSize }),
 
-      setSort: (sortBy, order) =>
+      setSort: (sortField, sortOrder) =>
         set({
-          sortBy,
-          order
+          sortField,
+          sortOrder
         }),
 
       setColumnWidth: (field, width) =>

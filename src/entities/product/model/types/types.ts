@@ -14,3 +14,13 @@ export interface IProductsResponse {
   skip: number;
   limit: number;
 }
+
+export interface IProductRow {
+  id: number;
+  title: string;
+  brand: string;
+  sku: string;
+  rating: number;
+  price: number;
+  stock: number;
+}
