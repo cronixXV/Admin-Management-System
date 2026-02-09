@@ -2,7 +2,7 @@ import { DataGrid, type GridSortModel } from '@mui/x-data-grid';
 import { Box } from '@mui/material';
 import { useProductsQuery, useTableStore } from '@/entities/product';
 import { columns } from '../model/config/table-columns';
-
+import { useDebounce } from '@/shared/lib/use-debounce';
 import { useSelectedProducts } from '../model/hooks/use-selected-products';
 
 export const ProductsTable = () => {
@@ -10,11 +10,16 @@ export const ProductsTable = () => {
   const { selectedIds, toggleProduct, selectAll, deselectAll, getSelectedIds } =
     useSelectedProducts();
 
+  const search = useTableStore((s) => s.search);
+
+  const debouncedSearch = useDebounce(search, 400);
+
   const { data, isLoading } = useProductsQuery({
     limit: pageSize,
     skip: page * pageSize,
     sortBy: sortField,
-    order: sortOrder
+    order: sortOrder,
+    q: debouncedSearch
   });
 
   const allProductIds = data?.products.map((p) => p.id) || [];

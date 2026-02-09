@@ -1,4 +1,5 @@
 import { Typography, Stack, TextField, Box, InputAdornment } from '@mui/material';
+import { useTableStore } from '@/entities/product';
 
 import Search from '@/shared/assets/icons/search.svg';
 import Language from '@/shared/assets/icons/language.svg';
@@ -7,6 +8,8 @@ import Notification from '@/shared/assets/icons/notification.svg';
 import Settings from '@/shared/assets/icons/settings.svg';
 
 export const Header = () => {
+  const search = useTableStore((s) => s.search);
+  const setSearch = useTableStore((s) => s.setSearch);
   return (
     <Stack
       width={'100%'}
@@ -43,6 +46,8 @@ export const Header = () => {
         }}
       >
         <TextField
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           placeholder="Найти"
           sx={{
             width: '100%',
