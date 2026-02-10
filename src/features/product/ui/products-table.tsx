@@ -34,7 +34,13 @@ export const ProductsTable = () => {
   const allProductIds = data?.products.map((p) => p.id) || [];
 
   const handleSortChange = (model: GridSortModel) => {
-    if (!model.length) return setSort();
+    setPage(0);
+
+    if (!model.length) {
+      setSort();
+      return;
+    }
+
     setSort(model[0].field, model[0].sort ?? undefined);
   };
 
@@ -72,13 +78,14 @@ export const ProductsTable = () => {
         })}
         loading={isLoading || isFetching}
         paginationMode="server"
-        sortingMode="server"
-        pageSizeOptions={[10, 20, 50]}
-        disableColumnResize={true}
+        paginationModel={{ page, pageSize }}
         onPaginationModelChange={(model) => {
           setPage(model.page);
           setPageSize(model.pageSize);
         }}
+        pageSizeOptions={[10, 20, 50]}
+        disableColumnResize={true}
+        sortingMode="server"
         sortModel={sortField ? [{ field: sortField, sort: sortOrder }] : []}
         onSortModelChange={handleSortChange}
         disableRowSelectionOnClick
@@ -86,6 +93,7 @@ export const ProductsTable = () => {
         getRowClassName={(params) =>
           selectedIds.has(params.row.id) ? 'selected-row-with-border' : ''
         }
+        getRowId={(row) => row.id}
         slots={{
           pagination: null
         }}
