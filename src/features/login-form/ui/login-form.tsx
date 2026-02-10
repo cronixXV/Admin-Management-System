@@ -48,7 +48,7 @@ export const LoginForm = () => {
   const onSubmit = async (values: LoginFormValues) => {
     try {
       await handleLogin(values);
-      toast.success('Logged in successfully');
+      toast.success('Вход успешен');
       navigate('/products');
     } catch (e: any) {
       toast.error(e.message);

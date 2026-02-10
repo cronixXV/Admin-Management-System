@@ -4,23 +4,32 @@ import { useProductsQuery, useTableStore } from '@/entities/product';
 import { columns } from '../model/config/table-columns';
 import { useDebounce } from '@/shared/lib/use-debounce';
 import { useSelectedProducts } from '../model/hooks/use-selected-products';
+import { ProductsTableHeader } from '@/features/product/ui/products-table-header';
+import { useMemo } from 'react';
+import { queryClient } from '@/shared/api/query-сlient';
+import { queryKeys } from '@/shared/api/query-keys';
+import { ProductsTableFooter } from './profile-table-footer';
 
 export const ProductsTable = () => {
   const { page, pageSize, sortField, sortOrder, setPage, setPageSize, setSort } = useTableStore();
-  const { selectedIds, toggleProduct, selectAll, deselectAll, getSelectedIds } =
-    useSelectedProducts();
+  const { selectedIds, toggleProduct, selectAll, deselectAll } = useSelectedProducts();
 
   const search = useTableStore((s) => s.search);
 
-  const debouncedSearch = useDebounce(search, 400);
+  const debouncedSearch = useDebounce(search, 1000);
 
-  const { data, isLoading } = useProductsQuery({
-    limit: pageSize,
-    skip: page * pageSize,
-    sortBy: sortField,
-    order: sortOrder,
-    q: debouncedSearch
-  });
+  const params = useMemo(
+    () => ({
+      limit: pageSize,
+      skip: page * pageSize,
+      sortBy: sortField,
+      order: sortOrder,
+      q: debouncedSearch
+    }),
+    [pageSize, page, sortField, sortOrder, debouncedSearch]
+  );
+
+  const { data, isLoading, isFetching } = useProductsQuery(params);
 
   const allProductIds = data?.products.map((p) => p.id) || [];
 
@@ -41,15 +50,17 @@ export const ProductsTable = () => {
     toggleProduct(id);
   };
 
-  console.log('Выбранные продукты:', getSelectedIds());
-
   return (
     <Box
       sx={{
         width: '100%',
-        height: '82vh'
+        height: '83vh'
       }}
     >
+      <ProductsTableHeader
+        onRefresh={() => queryClient.invalidateQueries({ queryKey: queryKeys.products.all })}
+      />
+
       <DataGrid
         rows={data?.products ?? []}
         rowCount={data?.total ?? 0}
@@ -59,22 +70,31 @@ export const ProductsTable = () => {
           allProductIds,
           selectedIds
         })}
-        loading={isLoading}
+        loading={isLoading || isFetching}
         paginationMode="server"
         sortingMode="server"
         pageSizeOptions={[10, 20, 50]}
-        paginationModel={{ page, pageSize }}
+        disableColumnResize={true}
         onPaginationModelChange={(model) => {
           setPage(model.page);
           setPageSize(model.pageSize);
         }}
+        sortModel={sortField ? [{ field: sortField, sort: sortOrder }] : []}
         onSortModelChange={handleSortChange}
         disableRowSelectionOnClick
+        rowHeight={71}
+        getRowClassName={(params) =>
+          selectedIds.has(params.row.id) ? 'selected-row-with-border' : ''
+        }
+        slots={{
+          pagination: null
+        }}
         sx={{
           borderRadius: 0,
           border: 'none',
           height: '100%',
-
+          maxHeight: '620px',
+          padding: '0px 30px',
           '& .MuiDataGrid-columnHeader': {
             height: '73px !important',
             minHeight: '73px !important',
@@ -83,24 +103,59 @@ export const ProductsTable = () => {
             fontFamily: 'Inter, sans-serif',
             fontSize: '16px',
             fontWeight: 700,
-            color: '#b2b3b9'
+            color: '#b2b3b9',
+            cursor: 'default !important'
           },
-
           '& .MuiDataGrid-columnHeaders': {
             height: '73px !important',
             minHeight: '73px !important',
             borderRadius: 0
           },
-
           '& .MuiDataGrid-columnHeaderTitle': {
             lineHeight: '73px',
             fontWeight: 700
           },
-
           '& .MuiDataGrid-row': {
             '&:hover': {
               backgroundColor: 'rgba(0, 0, 0, 0.04)'
             }
+          },
+          '& .MuiDataGrid-columnSeparator': {
+            display: 'none'
+          },
+          '& .selected-row-with-border': {
+            position: 'relative',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              bottom: 0,
+              width: '5px',
+              backgroundColor: '#3c538e',
+              zIndex: 1
+            }
+          },
+          '& .MuiDataGrid-cell:focus': {
+            outline: 'none'
+          },
+          '& .MuiDataGrid-cell:focus-within': {
+            outline: 'none'
+          },
+          '& .MuiDataGrid-cell:active': {
+            outline: 'none'
+          },
+          '& .MuiDataGrid-columnHeader:focus': {
+            outline: 'none'
+          },
+          '& .MuiDataGrid-columnHeader:focus-within': {
+            outline: 'none'
+          },
+          '& .MuiDataGrid-columnHeader:active': {
+            outline: 'none'
+          },
+          '& .MuiDataGrid-cell, & .MuiDataGrid-columnHeader': {
+            userSelect: 'none'
           }
         }}
         slotProps={{
@@ -110,6 +165,13 @@ export const ProductsTable = () => {
             }
           }
         }}
+      />
+
+      <ProductsTableFooter
+        page={page}
+        pageSize={pageSize}
+        total={data?.total || 0}
+        onPageChange={setPage}
       />
     </Box>
   );
