@@ -78,7 +78,6 @@ export const ProductsTable = () => {
         })}
         loading={isLoading || isFetching}
         paginationMode="server"
-        paginationModel={{ page, pageSize }}
         onPaginationModelChange={(model) => {
           setPage(model.page);
           setPageSize(model.pageSize);

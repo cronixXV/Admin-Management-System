@@ -1,5 +1,7 @@
-import { Box } from '@mui/material';
+import { Box, IconButton, Stack } from '@mui/material';
 import type { GridColDef } from '@mui/x-data-grid';
+import { Add } from '@mui/icons-material';
+import Dots from '@/shared/assets/icons/dots.svg';
 
 import type { IProductRow } from '@/entities/product';
 import { formatMoney } from '@/shared/lib/format-price';
@@ -25,6 +27,8 @@ export const columns = ({
     headerName: 'Наименование',
     flex: 1.2,
     minWidth: 180,
+    headerAlign: 'left', // заголовок по левому краю
+    align: 'left', // значения по левому краю
     renderHeader: () => {
       const areAllSelected =
         allProductIds.length > 0 && allProductIds.every((id) => selectedIds.has(id));
@@ -79,19 +83,25 @@ export const columns = ({
     field: 'brand',
     headerName: 'Вендор',
     flex: 1,
-    minWidth: 80
+    minWidth: 80,
+    headerAlign: 'center',
+    align: 'center'
   },
   {
     field: 'sku',
     headerName: 'Артикул',
     flex: 1,
-    minWidth: 80
+    minWidth: 80,
+    headerAlign: 'center',
+    align: 'center'
   },
   {
     field: 'rating',
     headerName: 'Оценка',
     flex: 1,
     minWidth: 80,
+    headerAlign: 'center',
+    align: 'center',
     renderCell: (params) => (
       <span
         style={{
@@ -108,12 +118,51 @@ export const columns = ({
     headerName: 'Цена, ₽',
     flex: 1,
     minWidth: 80,
+    headerAlign: 'center',
+    align: 'center',
     renderCell: (params) => formatMoney(params.row.price, 'RUB', 76.79)
   },
   {
     field: 'stock',
     headerName: 'Количество',
     flex: 1,
-    minWidth: 80
+    minWidth: 80,
+    headerAlign: 'center',
+    align: 'center'
+  },
+  {
+    field: 'actions',
+    headerName: '',
+    width: 130,
+    sortable: false,
+    filterable: false,
+    headerAlign: 'center',
+    align: 'center',
+    renderCell: () => (
+      <Stack flexDirection={'row'} gap={'32px'} alignItems={'center'} justifyContent="center">
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '23px',
+            padding: '4px',
+            width: '52px',
+            height: '27px',
+            backgroundColor: '#242edb'
+          }}
+        >
+          <IconButton size="small">
+            <Add fontSize="small" style={{ color: '#fff' }} />
+          </IconButton>
+        </Box>
+
+        <Box>
+          <IconButton size="small">
+            <Dots width={26} height={26} />
+          </IconButton>
+        </Box>
+      </Stack>
+    )
   }
 ];
