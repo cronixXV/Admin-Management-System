@@ -6,6 +6,8 @@ export interface IProduct {
   rating: number;
   stock: number;
   sku?: string;
+  category: string;
+  images: string[];
 }
 
 export interface IProductsResponse {
@@ -13,4 +15,16 @@ export interface IProductsResponse {
   total: number;
   skip: number;
   limit: number;
+}
+
+export interface IProductRow {
+  id: number;
+  title: string;
+  brand: string;
+  sku: string;
+  rating: number;
+  price: number;
+  stock: number;
+  category: string;
+  images: string[];
 }

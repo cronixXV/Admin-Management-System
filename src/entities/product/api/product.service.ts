@@ -11,7 +11,14 @@ export interface IProductsParams {
 
 export const productService = {
   getProducts: async (params?: IProductsParams) => {
-    const res = await http.get<IProductsResponse>('/products', { params });
+    const { q, ...rest } = params ?? {};
+
+    const url = q ? '/products/search' : '/products';
+
+    const res = await http.get<IProductsResponse>(url, {
+      params: q ? { q, ...rest } : rest
+    });
+
     return res.data;
   },
 

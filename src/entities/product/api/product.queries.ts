@@ -6,7 +6,15 @@ import { queryClient } from '@/shared/api/query-сlient';
 export const useProductsQuery = (params?: IProductsParams) => {
   return useQuery({
     queryKey: queryKeys.products.list(params),
-    queryFn: () => productService.getProducts(params)
+    queryFn: () => productService.getProducts(params),
+
+    select: (data) => ({
+      ...data,
+      products: data.products.map((p) => ({
+        ...p,
+        sku: `SKU-${p.id}`
+      }))
+    })
   });
 };
 
