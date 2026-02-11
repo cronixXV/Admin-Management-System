@@ -1,4 +1,5 @@
 import { http } from '@/shared/api/axios-instance';
+
 import type { IProductsResponse } from '../model/types/types';
 
 export interface IProductsParams {

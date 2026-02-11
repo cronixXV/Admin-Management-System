@@ -1,12 +1,15 @@
+import { useProductsQuery, useTableStore } from '@/entities/product';
+
 import { DataGrid, type GridSortModel } from '@mui/x-data-grid';
 import { Box } from '@mui/material';
-import { useProductsQuery, useTableStore } from '@/entities/product';
-import { columns } from '../model/config/table-columns';
-import { useSelectedProducts } from '../model/hooks/use-selected-products';
+
 import { queryClient } from '@/shared/api/query-сlient';
 import { queryKeys } from '@/shared/api/query-keys';
-import { ProductsTableFooter } from './profile-table-footer';
 import { EmptyState } from '@/shared/ui/empty-state/empty-state';
+
+import { columns } from '../model/config/table-columns';
+import { useSelectedProducts } from '../model/hooks/use-selected-products';
+import { ProductsTableFooter } from './profile-table-footer';
 import { productTableSx } from './product-table.styles';
 import { useProductsParams } from '../model/hooks/use-products-params';
 import { ProductsTableHeader } from './products-table-header';

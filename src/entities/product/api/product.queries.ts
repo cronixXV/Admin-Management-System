@@ -1,5 +1,7 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
+
 import { productService, type IProductsParams } from './product.service';
+
 import { queryKeys } from '@/shared/api/query-keys';
 import { queryClient } from '@/shared/api/query-сlient';
 

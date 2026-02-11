@@ -1,4 +1,5 @@
 import { ErrorBoundary } from 'react-error-boundary';
+
 import { Button, Stack, Typography } from '@mui/material';
 
 export const AppErrorBoundary = ({ children }: { children: React.ReactNode }) => {

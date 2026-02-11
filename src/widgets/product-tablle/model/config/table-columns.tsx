@@ -1,13 +1,14 @@
-import type { GridColDef } from '@mui/x-data-grid';
 import { Box, IconButton, Stack, Typography } from '@mui/material';
+import type { GridColDef } from '@mui/x-data-grid';
 
 import type { IProductRow } from '@/entities/product';
+
 import { formatMoney } from '@/shared/lib/format-price';
+import { formatTextToTitleCase } from '@/shared/lib/format-text';
 
 import Dots from '@/shared/assets/icons/dots.svg';
 import Checkbox from '@/shared/assets/icons/checkbox.svg';
 import CheckboxFill from '@/shared/assets/icons/checkbox-fill.svg';
-import { formatTextToTitleCase } from '@/shared/lib/format-text';
 import { Add } from '@mui/icons-material';
 
 interface IColumnsProps {

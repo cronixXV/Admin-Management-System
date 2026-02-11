@@ -1,4 +1,5 @@
 import { http } from '@/shared/api/axios-instance';
+
 import type { ILoginDto, ILoginResponse } from '../model/types/types';
 
 export const authService = {

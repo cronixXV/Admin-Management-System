@@ -1,3 +1,15 @@
+import { useForm } from 'react-hook-form';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
+
+import {
+  useAddProductMutation,
+  addProductSchema,
+  type AddProductForm,
+  type AddProductFormInput
+} from '@/entities/product';
+
 import {
   Dialog,
   DialogTitle,
@@ -8,16 +20,6 @@ import {
   TextField,
   Typography
 } from '@mui/material';
-
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  useAddProductMutation,
-  addProductSchema,
-  type AddProductForm,
-  type AddProductFormInput
-} from '@/entities/product';
-import { toast } from 'sonner';
 
 interface IAddProductModalProps {
   open: boolean;

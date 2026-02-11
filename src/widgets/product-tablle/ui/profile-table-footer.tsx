@@ -1,5 +1,7 @@
-import { Stack, Typography, IconButton, Button } from '@mui/material';
 import { useEffect, useState } from 'react';
+
+import { Stack, Typography, IconButton, Button } from '@mui/material';
+
 import ArrowLeft from '@/shared/assets/icons/arrow-left.svg';
 import ArrowRight from '@/shared/assets/icons/arrow-right.svg';
 

@@ -1,7 +1,9 @@
+import { useState } from 'react';
+
+import { AddProductModal } from '@/features/product';
+
 import { Box, Button, Stack, Typography } from '@mui/material';
 
-import { AddProductModal } from '@/features/product/ui/add-product-modal';
-import { useState } from 'react';
 import Add from '@/shared/assets/icons/add.svg';
 import Refresh from '@/shared/assets/icons/refresh.svg';
 import Filter from '@/shared/assets/icons/filter.svg';

@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+
 import { QueryProvider } from './query-provider';
 import { AppThemeProvider } from './theme-provider';
 import { RouterProvider } from './router-provider';

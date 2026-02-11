@@ -1,5 +1,6 @@
-import { useAuthStore } from '@/entities/auth';
 import axios from 'axios';
+
+import { useAuthStore } from '@/entities/auth';
 
 export const http = axios.create({
   baseURL: 'https://dummyjson.com',

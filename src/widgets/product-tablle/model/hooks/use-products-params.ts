@@ -1,6 +1,7 @@
+import { useMemo } from 'react';
+
 import { useTableStore } from '@/entities/product';
 import { useDebounce } from '@/shared/lib/use-debounce';
-import { useMemo } from 'react';
 
 export const useProductsParams = () => {
   const { page, pageSize, sortField, sortOrder, search } = useTableStore();

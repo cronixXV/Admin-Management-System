@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
+
 import { toast } from 'sonner';
+import { zodResolver } from '@hookform/resolvers/zod';
+
 import LogoAuth from '@/shared/assets/icons/logo-auth.svg';
 import Eye from '@/shared/assets/icons/eye.svg';
 import Email from '@/shared/assets/icons/email.svg';

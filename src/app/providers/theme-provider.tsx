@@ -1,16 +1,17 @@
-import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
+
+import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 
 const theme = createTheme({
   palette: {
-    mode: "light",
+    mode: 'light',
     primary: {
-      main: "#2d6ae3",
-    },
+      main: '#2d6ae3'
+    }
   },
   shape: {
-    borderRadius: 12,
-  },
+    borderRadius: 12
+  }
 });
 
 export const AppThemeProvider = ({ children }: { children: ReactNode }) => {

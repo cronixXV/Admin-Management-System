@@ -1,5 +1,6 @@
-import { Typography, Stack, TextField, Box, InputAdornment } from '@mui/material';
 import { useTableStore } from '@/entities/product';
+
+import { Typography, Stack, TextField, Box, InputAdornment } from '@mui/material';
 
 import Search from '@/shared/assets/icons/search.svg';
 import Language from '@/shared/assets/icons/language.svg';
