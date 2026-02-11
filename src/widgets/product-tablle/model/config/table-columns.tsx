@@ -1,14 +1,14 @@
-import { Box, IconButton, Stack, Typography } from '@mui/material';
 import type { GridColDef } from '@mui/x-data-grid';
-import { Add } from '@mui/icons-material';
-import Dots from '@/shared/assets/icons/dots.svg';
+import { Box, IconButton, Stack, Typography } from '@mui/material';
 
 import type { IProductRow } from '@/entities/product';
 import { formatMoney } from '@/shared/lib/format-price';
 
+import Dots from '@/shared/assets/icons/dots.svg';
 import Checkbox from '@/shared/assets/icons/checkbox.svg';
 import CheckboxFill from '@/shared/assets/icons/checkbox-fill.svg';
 import { formatTextToTitleCase } from '@/shared/lib/format-text';
+import { Add } from '@mui/icons-material';
 
 interface IColumnsProps {
   onHeaderCheckboxChange?: (checked: boolean, allIds: number[]) => void;
@@ -27,7 +27,7 @@ export const columns = ({
     field: 'title',
     headerName: 'Наименование',
     flex: 1.2,
-    minWidth: 390,
+    minWidth: 450,
     headerAlign: 'left',
     align: 'left',
     renderHeader: () => {
@@ -77,12 +77,24 @@ export const columns = ({
               style={{ cursor: 'pointer', width: 20, height: 20 }}
             />
           )}
+          <Box
+            component="img"
+            src={params.row.images[0]}
+            alt={params.row.title}
+            sx={{
+              border: '1px solid #ececeb',
+              borderRadius: '8px',
+              width: '48px',
+              height: '48px',
+              objectFit: 'cover'
+            }}
+          />
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
             <Typography
               sx={{
                 fontFamily: 'Circe, sans-serif',
                 fontWeight: 700,
-                fontSize: '16p',
+                fontSize: '16px',
                 color: '#161919'
               }}
             >
@@ -159,20 +171,37 @@ export const columns = ({
     minWidth: 80,
     headerAlign: 'center',
     align: 'center',
-    renderCell: (params) => (
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-        <Typography
-          sx={{
-            fontSize: '16px',
-            color: params.value < 3 ? '#d32f2f' : undefined,
-            fontWeight: 400,
-            fontFamily: 'Open, sans-serif'
-          }}
+    renderCell: (params) => {
+      const ratingValue = Number(params.row.rating.toFixed(1));
+      const isLowRating = ratingValue < 3;
+
+      return (
+        <Box
+          sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}
         >
-          {params.row.rating}
-        </Typography>
-      </Box>
-    )
+          <Typography
+            sx={{
+              fontSize: '16px',
+              color: isLowRating ? '#d32f2f' : undefined,
+              fontWeight: 400,
+              fontFamily: 'Open, sans-serif'
+            }}
+          >
+            {ratingValue}
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: '16px',
+              color: '#161919',
+              fontWeight: 400,
+              fontFamily: 'Open, sans-serif'
+            }}
+          >
+            /5
+          </Typography>
+        </Box>
+      );
+    }
   },
   {
     field: 'price',

@@ -1,1 +1,1 @@
-export { ProductsTable } from './ui/products-table';
+export { AddProductModal } from './ui/add-product-modal';

@@ -7,6 +7,7 @@ export interface IProduct {
   stock: number;
   sku?: string;
   category: string;
+  images: string[];
 }
 
 export interface IProductsResponse {
@@ -25,4 +26,5 @@ export interface IProductRow {
   price: number;
   stock: number;
   category: string;
+  images: string[];
 }

@@ -1,4 +1,4 @@
-import { ProductsTable } from '@/features/product';
+import { ProductsTable } from '@/widgets/product-tablle';
 
 export const ProductsPage = () => {
   return <ProductsTable />;
