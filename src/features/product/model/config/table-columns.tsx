@@ -233,7 +233,7 @@ export const columns = ({
     headerAlign: 'center',
     align: 'center',
     renderCell: () => (
-      <Stack flexDirection={'row'} gap={'32px'} alignItems={'center'} justifyContent="center">
+      <Stack flexDirection={'row'} gap={'10px'} alignItems={'center'} justifyContent="center">
         <Box
           sx={{
             display: 'flex',
