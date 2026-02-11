@@ -11,8 +11,12 @@ import {
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { addProductSchema, type AddProductForm } from '@/entities/product';
-import { useAddProductMutation } from '@/entities/product';
+import {
+  useAddProductMutation,
+  addProductSchema,
+  type AddProductForm,
+  type AddProductFormInput
+} from '@/entities/product';
 import { toast } from 'sonner';
 
 interface IAddProductModalProps {
@@ -26,7 +30,7 @@ export const AddProductModal = ({ open, onClose }: IAddProductModalProps) => {
     handleSubmit,
     formState: { errors },
     reset
-  } = useForm<AddProductForm>({
+  } = useForm<AddProductFormInput, unknown, AddProductForm>({
     resolver: zodResolver(addProductSchema)
   });
 

@@ -7,4 +7,4 @@ export {
 export { useTableStore } from './model/store/table.store';
 export type { IProductRow, IProductsResponse, IProduct } from './model/types/types';
 export { addProductSchema } from './model/schemas/schema';
-export type { AddProductForm } from './model/schemas/schema';
+export type { AddProductForm, AddProductFormInput } from './model/schemas/schema';
