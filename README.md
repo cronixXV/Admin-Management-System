@@ -1,73 +1,67 @@
-# React + TypeScript + Vite
+# Product Management Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Приложение для управления товарами: просмотр, сортировка, редактирование и добавление новых позиций с использованием React, TypeScript и современного стека инструментов.
 
-Currently, two official plugins are available:
+## 🚀 Стек технологий
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Frontend:** React 18+, TypeScript (strict mode)
+- **Сборка:** Vite
+- **UI:** MUI, MUI DataGrid
+- **State Management:**
+  - **Локальный UI state:** Zustand
+  - **Server state:** TanStack Query
+- **Формы:** react-hook-form + Zod
+- **Уведомления:** Sonner
+- **Utils:** debounce, clsx
+- **Архитектура:** Feature-Sliced Design (FSD)
 
-## React Compiler
+## 🔐 Авторизация
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Форма логина с валидацией через `react-hook-form` и `zod`.
+- Поддержка чекбокса "Запомнить меня":
+  - **true:** токен сохраняется в `localStorage` → сессия живет после закрытия браузера.
+  - **false:** токен в `sessionStorage` → сбрасывается после закрытия вкладки.
+- Обработка ошибок API и вывод уведомлений.
 
-## Expanding the ESLint configuration
+## 📦 Работа с товарами
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Источник данных:** [DummyJSON Products API](https://dummyjson.com/products)
+- **Функционал:**
+  - Вывод списка товаров с прогресс-баром при подгрузке.
+  - Сортировка по колонкам (цена, рейтинг и др.), состояние сортировки сохраняется.
+  - Поиск с серверным debounce.
+  - Добавление новых товаров через форму или modal, с уведомлением Toast.
+- **UI особенности:**
+  - Рейтинг ниже 3 подсвечивается красным.
+  - Память состояния таблицы через Zustand persist.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## ⚡ Фичи
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Protected routes: только авторизованные пользователи могут просматривать страницу товаров.
+- Skeleton и empty state для лучшего UX.
+- Error boundary для стабильности.
+- Toast уведомления для всех ошибок.
+- Loading overlay при запросах к API.
+- Полная адаптация под Google Chrome (актуальная версия).
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🛠 Настройка и запуск
+
+```bash
+# Клонировать репозиторий
+git clone <REPO_URL>
+cd <PROJECT_NAME>
+
+# Установить зависимости
+npm install
+
+# Запуск в режиме разработки
+npm run dev
+
+# Сборка проекта
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠 Креды для быстрого входа(взяты из https://dummyjson.com/users)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+"username": emilys
+"password": emilyspass
