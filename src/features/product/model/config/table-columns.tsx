@@ -1,4 +1,4 @@
-import { Box, IconButton, Stack } from '@mui/material';
+import { Box, IconButton, Stack, Typography } from '@mui/material';
 import type { GridColDef } from '@mui/x-data-grid';
 import { Add } from '@mui/icons-material';
 import Dots from '@/shared/assets/icons/dots.svg';
@@ -8,6 +8,7 @@ import { formatMoney } from '@/shared/lib/format-price';
 
 import Checkbox from '@/shared/assets/icons/checkbox.svg';
 import CheckboxFill from '@/shared/assets/icons/checkbox-fill.svg';
+import { formatTextToTitleCase } from '@/shared/lib/format-text';
 
 interface IColumnsProps {
   onHeaderCheckboxChange?: (checked: boolean, allIds: number[]) => void;
@@ -27,8 +28,8 @@ export const columns = ({
     headerName: 'Наименование',
     flex: 1.2,
     minWidth: 180,
-    headerAlign: 'left', // заголовок по левому краю
-    align: 'left', // значения по левому краю
+    headerAlign: 'left',
+    align: 'left',
     renderHeader: () => {
       const areAllSelected =
         allProductIds.length > 0 && allProductIds.every((id) => selectedIds.has(id));
@@ -74,7 +75,29 @@ export const columns = ({
               style={{ cursor: 'pointer', width: 20, height: 20 }}
             />
           )}
-          <span>{params.value}</span>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+            <Typography
+              sx={{
+                fontFamily: 'Circe, sans-serif',
+                fontWeight: 700,
+                fontSize: '16p',
+                color: '#161919'
+              }}
+            >
+              {params.row.title}
+            </Typography>
+
+            <Typography
+              sx={{
+                fontFamily: 'Circe, sans-serif',
+                fontWeight: 400,
+                fontSize: '14px',
+                color: '#b2b3b9'
+              }}
+            >
+              {formatTextToTitleCase(params.row.category)}
+            </Typography>
+          </Box>
         </Box>
       );
     }
@@ -85,7 +108,25 @@ export const columns = ({
     flex: 1,
     minWidth: 80,
     headerAlign: 'center',
-    align: 'center'
+    align: 'center',
+    renderCell: (params) => {
+      return (
+        <Box
+          sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}
+        >
+          <Typography
+            sx={{
+              fontFamily: 'Open, sans-serif',
+              fontWeight: 700,
+              fontSize: '16px',
+              color: '#161919'
+            }}
+          >
+            {params.row.brand}
+          </Typography>
+        </Box>
+      );
+    }
   },
   {
     field: 'sku',
@@ -93,7 +134,21 @@ export const columns = ({
     flex: 1,
     minWidth: 80,
     headerAlign: 'center',
-    align: 'center'
+    align: 'center',
+    renderCell: (params) => (
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+        <Typography
+          sx={{
+            fontFamily: 'Open, sans-serif',
+            fontWeight: 400,
+            fontSize: '16px',
+            color: '#161919'
+          }}
+        >
+          {params.row.sku}
+        </Typography>
+      </Box>
+    )
   },
   {
     field: 'rating',
@@ -103,14 +158,18 @@ export const columns = ({
     headerAlign: 'center',
     align: 'center',
     renderCell: (params) => (
-      <span
-        style={{
-          color: params.value < 3 ? '#d32f2f' : undefined,
-          fontWeight: 600
-        }}
-      >
-        {params.value}
-      </span>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+        <Typography
+          sx={{
+            fontSize: '16px',
+            color: params.value < 3 ? '#d32f2f' : undefined,
+            fontWeight: 400,
+            fontFamily: 'Open, sans-serif'
+          }}
+        >
+          {params.row.rating}
+        </Typography>
+      </Box>
     )
   },
   {
@@ -120,7 +179,23 @@ export const columns = ({
     minWidth: 80,
     headerAlign: 'center',
     align: 'center',
-    renderCell: (params) => formatMoney(params.row.price, 'RUB', 76.79)
+    renderCell: (params) => {
+      return (
+        <Box
+          sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}
+        >
+          <Typography
+            sx={{
+              fontSize: '16px',
+              fontWeight: 400,
+              fontFamily: 'Open, sans-serif'
+            }}
+          >
+            {formatMoney(params.row.price, 'RUB', 76.79)}
+          </Typography>
+        </Box>
+      );
+    }
   },
   {
     field: 'stock',
@@ -128,12 +203,29 @@ export const columns = ({
     flex: 1,
     minWidth: 80,
     headerAlign: 'center',
-    align: 'center'
+    align: 'center',
+    renderCell: (params) => {
+      return (
+        <Box
+          sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}
+        >
+          <Typography
+            sx={{
+              fontSize: '16px',
+              fontWeight: 400,
+              fontFamily: 'Open, sans-serif'
+            }}
+          >
+            {params.row.stock}
+          </Typography>
+        </Box>
+      );
+    }
   },
   {
     field: 'actions',
     headerName: '',
-    width: 130,
+    width: 110,
     sortable: false,
     filterable: false,
     headerAlign: 'center',

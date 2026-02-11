@@ -6,6 +6,7 @@ export interface IProduct {
   rating: number;
   stock: number;
   sku?: string;
+  category: string;
 }
 
 export interface IProductsResponse {
@@ -23,4 +24,5 @@ export interface IProductRow {
   rating: number;
   price: number;
   stock: number;
+  category: string;
 }
