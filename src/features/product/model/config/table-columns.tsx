@@ -27,14 +27,15 @@ export const columns = ({
     field: 'title',
     headerName: 'Наименование',
     flex: 1.2,
-    minWidth: 180,
+    minWidth: 390,
     headerAlign: 'left',
     align: 'left',
     renderHeader: () => {
       const areAllSelected =
         allProductIds.length > 0 && allProductIds.every((id) => selectedIds.has(id));
 
-      const handleHeaderCheckboxChange = () => {
+      const handleHeaderCheckboxChange = (e: React.MouseEvent<SVGSVGElement>) => {
+        e.stopPropagation();
         onHeaderCheckboxChange?.(!areAllSelected, allProductIds);
       };
 
@@ -58,7 +59,8 @@ export const columns = ({
     renderCell: (params) => {
       const isChecked = selectedIds.has(params.row.id);
 
-      const handleRowCheckboxChange = () => {
+      const handleRowCheckboxChange = (e: React.MouseEvent<SVGSVGElement>) => {
+        e.preventDefault();
         onRowCheckboxChange?.(params.row.id);
       };
 
